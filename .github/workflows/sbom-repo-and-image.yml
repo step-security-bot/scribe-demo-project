@@ -21,9 +21,9 @@ jobs:
         target: 'git:.'
 
     - name: Build the Docker image
-      run: docker build . -t ${{ github.repository }}:${${{ github.sha }}:0:7}
+      run: docker build . -t ${{ github.repository }}:${{ github.sha }}
 
     - name: Generate SBOM for docker image
       uses: scribe-security/action-bom@master
       with:
-        target: 'docker:${{ github.repository }}:${${{ github.sha }}:0:7}'
+        target: 'docker:${{ github.repository }}:${{ github.sha }}'
