@@ -1,2 +1,2 @@
 # git-integrity-rule-example-repo
-Contains files and workflow used for demoing the git integrity rule.
+Contains a nodejs express "hello world" app and workflows, used for demoing the git integrity rule.
