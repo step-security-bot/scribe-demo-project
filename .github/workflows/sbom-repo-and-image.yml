@@ -1,0 +1,29 @@
+name: Generate SBOM for repo and image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Generate SBOM for repo content
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'git:'
+
+    - name: Build the Docker image
+      run: docker build . -t ${{github.repository}}:${${{github.sha}}:0:7}
+
+    - name: Generate SBOM for docker image
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'git:.'
