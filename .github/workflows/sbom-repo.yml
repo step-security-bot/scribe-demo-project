@@ -1,10 +1,17 @@
 name: Generate reference SBOM for repo
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  AUTH0_DOMAIN: https://scribe-hub-dev.us.auth0.com
+  AUTH0_SCRIBE_SERVICE_AUDIENCE: api.dev.scribesecurity.com
+  SCRIBE_API_BASE_URI: https://airflow.dev.scribesecurity.com
 
 jobs:
 
@@ -19,3 +26,10 @@ jobs:
       uses: scribe-security/action-bom@master
       with:
         target: 'git:.'
+        scribe-enable: true
+        scribe-login-url: $AUTH0_DOMAIN
+        scribe-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
+        scribe-url: $SCRIBE_API_BASE_URI
+        product-key: ${{ github.repository }}
+        scribe-client-id: ${{ secrets.CLIENT_ID }}
+        scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
