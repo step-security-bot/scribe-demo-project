@@ -38,7 +38,7 @@ jobs:
       with:
         target: 'docker:${{ github.repository }}:${{ github.sha }}'
         scribe-enable: true
-        scribe-login-url: $AUTH0_DOMAIN
+        scribe-login-url: https://$AUTH0_DOMAIN
         scribe-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
         scribe-url: $SCRIBE_API_BASE_URI
         product-key: ${{ github.repository }}
