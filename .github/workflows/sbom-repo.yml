@@ -9,7 +9,7 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
-  AUTH0_DOMAIN: https://scribe-hub-dev.us.auth0.com
+  AUTH0_DOMAIN: scribe-hub-dev.us.auth0.com
   AUTH0_SCRIBE_SERVICE_AUDIENCE: api.dev.scribesecurity.com
   SCRIBE_API_BASE_URI: https://airflow.dev.scribesecurity.com
 
