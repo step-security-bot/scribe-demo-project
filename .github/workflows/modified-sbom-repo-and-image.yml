@@ -1,0 +1,49 @@
+name: Generate SBOM for modified repo and image
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  AUTH0_DOMAIN: scribe-hub-dev.us.auth0.com
+  AUTH0_SCRIBE_SERVICE_AUDIENCE: api.dev.scribesecurity.com
+  SCRIBE_API_BASE_URI: https://airflow.dev.scribesecurity.com
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Modify repo file
+      run: echo -n "\n\nprocess.exit()" >> ./src/app.js
+    
+    - name: Generate SBOM for repo content
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'git:.'
+        scribe-enable: true
+        scribe-login-url: https://$AUTH0_DOMAIN
+        scribe-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
+        scribe-url: $SCRIBE_API_BASE_URI
+        product-key: ${{ github.repository }}
+        scribe-client-id: ${{ secrets.CLIENT_ID }}
+        scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+
+    - name: Build the Docker image
+      run: docker build . -t ${{ github.repository }}:${{ github.sha }}
+
+    - name: Generate SBOM for docker image
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'docker:${{ github.repository }}:${{ github.sha }}'
+        scribe-enable: true
+        scribe-login-url: https://$AUTH0_DOMAIN
+        scribe-audience: $AUTH0_SCRIBE_SERVICE_AUDIENCE
+        scribe-url: $SCRIBE_API_BASE_URI
+        product-key: ${{ github.repository }}
+        scribe-client-id: ${{ secrets.CLIENT_ID }}
+        scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
