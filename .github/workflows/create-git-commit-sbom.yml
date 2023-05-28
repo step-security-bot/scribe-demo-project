@@ -1,4 +1,4 @@
-name: Generate reference SBOM for repo
+name: Create git commit sbom
 
 on:
   workflow_dispatch:
@@ -33,3 +33,5 @@ jobs:
         product-key: ${{ github.repository }}
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+        format: attest
+        
