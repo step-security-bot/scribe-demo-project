@@ -1,4 +1,4 @@
-name: Generate SBOM for modified repo and image
+name: Create modified git clone and image sboms
 
 on:
   workflow_dispatch:
@@ -12,8 +12,12 @@ env:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
 
     steps:
     - uses: actions/checkout@v3
@@ -32,6 +36,7 @@ jobs:
         product-key: ${{ github.repository }}
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+        format: attest
 
     - name: Build the Docker image
       run: docker build . -t ${{ github.repository }}:${{ github.sha }}
@@ -47,3 +52,4 @@ jobs:
         product-key: ${{ github.repository }}
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+        format: attest
