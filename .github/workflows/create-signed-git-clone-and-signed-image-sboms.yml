@@ -1,4 +1,4 @@
-name: Create signed git clone and image sboms
+name: Create signed git clone and signed image sboms
 
 on:
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . -t ${{ github.repository }}:${{ github.sha }}
 
-    - name: Generate SBOM for docker image
+    - name: Generate signed SBOM for docker image
       uses: scribe-security/action-bom@master
       with:
         target: 'docker:${{ github.repository }}:${{ github.sha }}'
