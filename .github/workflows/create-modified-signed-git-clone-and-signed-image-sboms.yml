@@ -1,4 +1,4 @@
-name: Create modified signed git clone and image sboms
+name: Create modified signed git clone and signed image sboms
 
 on:
   workflow_dispatch:
