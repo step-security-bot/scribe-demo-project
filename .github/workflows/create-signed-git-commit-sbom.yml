@@ -1,4 +1,4 @@
-name: Create git commit sbom
+name: Create signed git commit sbom
 
 on:
   workflow_dispatch:
