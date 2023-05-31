@@ -38,4 +38,3 @@ jobs:
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         env: IS_GIT_COMMIT
         format: attest
-        
