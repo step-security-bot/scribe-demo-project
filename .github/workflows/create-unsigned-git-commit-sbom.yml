@@ -10,7 +10,6 @@ env:
   AUTH0_DOMAIN: scribe-hub-dev.us.auth0.com
   AUTH0_SCRIBE_SERVICE_AUDIENCE: api.dev.scribesecurity.com
   SCRIBE_API_BASE_URI: https://airflow.dev.scribesecurity.com
-  IS_GIT_COMMIT: true
 
 jobs:
 
@@ -36,5 +35,5 @@ jobs:
         product-key: ${{ github.repository }}
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
-        env: IS_GIT_COMMIT
+        label: is_git_commit
 #         format: attest
