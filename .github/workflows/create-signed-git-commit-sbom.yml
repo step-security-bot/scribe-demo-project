@@ -9,7 +9,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
   LOGICAL_APP_NAME: avocado-project
   AUTHOR_NAME: McCoy Pauley
-  AUTHOR_EMAIL: gc@scribesecurity.com
+  AUTHOR_EMAIL: info@scribesecurity.com
   AUTHOR_PHONE: 111-1111-11
   SUPPLIER_NAME: Scribe-Security
   SUPPLIER_URL: www.scribesecurity.com
