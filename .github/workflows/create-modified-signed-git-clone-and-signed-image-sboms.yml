@@ -5,7 +5,7 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
-  LOGICAL_APP_NAME: avocado-project
+  LOGICAL_APP_NAME: scribe-demo-product
   AUTHOR_NAME: McCoy Pauley
   AUTHOR_EMAIL: info@scribesecurity.com
   AUTHOR_PHONE: 111-1111-11
