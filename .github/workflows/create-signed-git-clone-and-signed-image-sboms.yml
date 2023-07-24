@@ -51,12 +51,12 @@ jobs:
         supplier-phone: $SUPPLIER_PHONE
 
     - name: Build the Docker image
-      run: docker build . -t ${{ github.repository }}:${{ github.sha }}
+      run: docker build . -t scribe-demo-product:${{ github.sha }}
 
     - name: Generate signed SBOM for docker image
       uses: scribe-security/action-bom@master
       with:
-        target: 'docker:${{ github.repository }}:${{ github.sha }}'
+        target: 'docker:scribe-demo-product:${{ github.sha }}'
         scribe-enable: true
         components: packages,files,dep
         product-key: ${{ github.repository }}
