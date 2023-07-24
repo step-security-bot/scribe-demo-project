@@ -11,5 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
+    "seriate": "3.0.0",
+    "node-opcua-common": "2.32.0"
   }
 }
