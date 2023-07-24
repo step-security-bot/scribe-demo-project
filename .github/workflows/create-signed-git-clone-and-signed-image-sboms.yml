@@ -5,6 +5,15 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  LOGICAL_APP_NAME: avocado-project
+  AUTHOR_NAME: Guy-Chernobrov
+  AUTHOR_EMAIL: gc@scribesecurity.com
+  AUTHOR_PHONE: 111-1111-11
+  SUPPLIER_NAME: Scribe-Security
+  SUPPLIER_URL: www.scribesecurity.com
+  SUPPLIER_EMAIL: info@scribesecurity.com
+  SUPPLIER_PHONE: 001-001-0011
+  USER_DATA: service-binding
 
   
 
