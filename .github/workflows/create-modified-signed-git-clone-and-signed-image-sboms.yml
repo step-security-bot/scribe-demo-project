@@ -39,7 +39,7 @@ jobs:
         target: 'git:.'
         scribe-enable: true
         components: packages,files,dep 
-        product-key: scribe-demo-product
+        product-key: scribe-demo-prod-v1
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
@@ -62,7 +62,7 @@ jobs:
         target: 'docker:scribe-demo-product:${{ github.sha }}'
         scribe-enable: true
         components: packages,files,dep
-        product-key: scribe-demo-product
+        product-key: scribe-demo-prod-v1
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
