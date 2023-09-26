@@ -63,6 +63,7 @@ jobs:
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
         product-version: "version_prod_sprint37"
+        force: true
         author-name: $AUTHOR_NAME
         author-email: $AUTHOR_EMAIL
         author-phone: $AUTHOR_PHONE
