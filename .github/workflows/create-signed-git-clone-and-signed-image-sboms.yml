@@ -40,8 +40,7 @@ jobs:
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
-        app-name: $LOGICAL_APP_NAME
-        app-version: 1-24-${{github.run_number}}
+       
         author-name: $AUTHOR_NAME
         author-email: $AUTHOR_EMAIL
         author-phone: $AUTHOR_PHONE
@@ -63,8 +62,7 @@ jobs:
         scribe-client-id: ${{ secrets.CLIENT_ID }}
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
-        app-name: $LOGICAL_APP_NAME
-        app-version: 1-24-${{github.run_number}}
+        
         author-name: $AUTHOR_NAME
         author-email: $AUTHOR_EMAIL
         author-phone: $AUTHOR_PHONE
