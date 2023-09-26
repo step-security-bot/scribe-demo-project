@@ -42,6 +42,7 @@ jobs:
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         label: is_git_commit
         format: attest
+        product-version: "version_prod_sprint37"
         
         author-name: $AUTHOR_NAME
         author-email: $AUTHOR_EMAIL
