@@ -1,0 +1,36 @@
+name:  SBOM (Scribe) CLI GIT and image
+
+on:
+    workflow_dispatch:
+
+env:
+  SCRIBE_CLIENT_ID: ${{ secrets.SCRIBE_CLIENTID }}
+  SCRIBE_CLIENT_SECRET: ${{ secrets.SCRIBE_CLIENTSECRET }}
+  COMPANY_CA: ${{ secrets.COMPANY_CA }}
+  SIGNER_CERT: ${{ secrets.SIGNER_CERT }}
+  SIGNER_KEY: ${{ secrets.SIGNER_KEY }}
+  APP_IMAGE: prod-images.mgti-dal-so-art.mrshmc.com/whitehat-assets-onboading/api:1.1.100
+  PRODUCT_KEY: demo-sign-and-integrity
+
+jobs:
+  scribe-sign:
+    name: Generate SBOM
+    runs-on: usdf21v0907-1
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        
+      - name: install valint
+        run: curl -sSfL https://get.scribesecurity.com/install.sh  | sh -s -- -t valint
+
+      - name: sbom attest git
+        run: |
+         $HOME/.scribe/bin/valint bom git:. \
+         --format attest \
+         --scribe.enable \
+         --scribe.client-id $SCRIBE_CLIENT_ID \
+         --scribe.client-secret $SCRIBE_CLIENT_SECRET \
+         --product-key $PRODUCT_KEY \
+         --attest.default x509 \
+         --config .valint.yaml \
+         --force
