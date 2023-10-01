@@ -33,8 +33,8 @@ jobs:
          --product-key $PRODUCT_KEY \
          --attest.default x509 \
          --config .valint.yaml \
-         --force
-         --verbose: 2
+         --force \
+         --verbose 2
       - name: Build the Docker image
         run: docker build . -t scribe-demo-product:${{ github.sha }}
       - name: sbom attest image
