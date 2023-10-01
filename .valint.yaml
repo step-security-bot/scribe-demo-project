@@ -11,12 +11,12 @@ attest:
         signer:
             x509:
                 enable: true
-                private: env://PRIVATE_KEY
-                cert: env://SIGNING_CERT
-                ca: env://CA_CERT
+                private: env://SIGNER_KEY
+                cert: env://SIGNER_CERT
+                ca: env://COMPANY_CA
         verifier:
             x509:
                 enable: true
-                cert: env://SIGNING_CERT
-                ca: env://CA_CERT
+                cert: env://SIGNER_CERT
+                ca: env://COMPANY_CA
     
