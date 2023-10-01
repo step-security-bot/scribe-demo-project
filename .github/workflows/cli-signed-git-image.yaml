@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
 
 env:
-  SCRIBE_CLIENT_ID: ${{ secrets.SCRIBE_CLIENTID }}
+  SCRIBE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
   SCRIBE_CLIENT_SECRET: ${{ secrets.SCRIBE_CLIENTSECRET }}
   COMPANY_CA: ${{ secrets.COMPANY_CA }}
   SIGNER_CERT: ${{ secrets.SIGNER_CERT }}
@@ -28,7 +28,7 @@ jobs:
          $HOME/.scribe/bin/valint bom git:. \
          --format attest \
          --scribe.enable \
-         --scribe.client-id $SCRIBE_CLIENT_ID \
+         --scribe.client-id $CLIENT_ID \
          --scribe.client-secret $SCRIBE_CLIENT_SECRET \
          --product-key $PRODUCT_KEY \
          --attest.default x509 \
