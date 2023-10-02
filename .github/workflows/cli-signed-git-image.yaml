@@ -26,6 +26,7 @@ jobs:
       - name: sbom attest git
         run: |
          $HOME/.scribe/bin/valint bom git:. \
+         --components packages,files,dep \
          --format attest \
          --scribe.enable \
          --scribe.client-id $SCRIBE_CLIENT_ID \
