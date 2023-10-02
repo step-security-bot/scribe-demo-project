@@ -35,7 +35,7 @@ jobs:
          --attest.default x509 \
          --config .valint.yaml \
          --force \
-         --product-version "ver-1" \
+         --product-version "ver-2" \
          --context-type "github" \
          --verbose 2
       - name: Build the Docker image
@@ -50,7 +50,7 @@ jobs:
          --product-key $PRODUCT_KEY \
          --attest.default x509 \
          --config .valint.yaml \
-         --product-version "ver-1" \
+         --product-version "ver-2" \
          --context-type "github" \
          --force
       
