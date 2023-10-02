@@ -11,6 +11,7 @@ env:
   SIGNER_KEY: ${{ secrets.SIGNER_KEY }}
   APP_IMAGE: prod-images.mgti-dal-so-art.mrshmc.com/whitehat-assets-onboading/api:1.1.100
   PRODUCT_KEY: demo-sign-and-integrity
+  GITHUB_RUN_ID: ${{ github.run_id }}
 
 jobs:
   scribe-sign:
@@ -36,7 +37,6 @@ jobs:
          --config .valint.yaml \
          --force \
          --product-version "ver-2" \
-         --context-type "github" \
          --verbose 2
       - name: Build the Docker image
         run: docker build . -t scribe-demo-product:${{ github.sha }}
