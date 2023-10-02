@@ -12,6 +12,7 @@ env:
   APP_IMAGE: prod-images.mgti-dal-so-art.mrshmc.com/whitehat-assets-onboading/api:1.1.100
   PRODUCT_KEY: demo-sign-and-integrity
   GITHUB_RUN_ID: ${{ github.run_id }}
+  VERSION: ${{ github.run_number }}
 
 jobs:
   scribe-sign:
@@ -36,7 +37,7 @@ jobs:
          --attest.default x509 \
          --config .valint.yaml \
          --force \
-         --product-version ${{ github.run_number }} \
+         --product-version $VERSION \
          --context-type "github" \
          --verbose 2
       - name: Build the Docker image
@@ -51,7 +52,7 @@ jobs:
          --product-key $PRODUCT_KEY \
          --attest.default x509 \
          --config .valint.yaml \
-         --product-version ${{ github.run_number }} \
+         --product-version $VERSION \
          --context-type "github" \
          --force
       
