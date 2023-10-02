@@ -36,6 +36,7 @@ jobs:
          --config .valint.yaml \
          --force \
          --verbose 2 \
+         --context-type "github" \
          --label "is_git_commit"
       
 
