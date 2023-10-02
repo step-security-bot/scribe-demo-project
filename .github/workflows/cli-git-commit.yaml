@@ -35,7 +35,7 @@ jobs:
          --attest.default x509 \
          --config .valint.yaml \
          --force \
-         --verbose 2\
-         --label is_git_commit 
+         --verbose 2 \
+         --label "is_git_commit"
       
 
