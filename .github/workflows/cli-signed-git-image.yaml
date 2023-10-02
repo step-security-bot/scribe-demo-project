@@ -37,6 +37,7 @@ jobs:
          --config .valint.yaml \
          --force \
          --product-version "ver-2" \
+         --context-type "github" \
          --verbose 2
       - name: Build the Docker image
         run: docker build . -t scribe-demo-product:${{ github.sha }}
