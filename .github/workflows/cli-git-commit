@@ -35,6 +35,6 @@ jobs:
          --config .valint.yaml \
          --force \
          --verbose 2\
-         --label 
+         --label is_git_commit 
       
 
