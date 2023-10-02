@@ -11,6 +11,7 @@ env:
   SIGNER_KEY: ${{ secrets.SIGNER_KEY }}
   APP_IMAGE: prod-images.mgti-dal-so-art.mrshmc.com/whitehat-assets-onboading/api:1.1.100
   PRODUCT_KEY: demo-sign-and-integrity
+  GITHUB_RUN_ID: ${{ github.run_id }}
 
 jobs:
   scribe-sign:
