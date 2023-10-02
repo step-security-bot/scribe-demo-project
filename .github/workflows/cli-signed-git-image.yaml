@@ -28,8 +28,8 @@ jobs:
          $HOME/.scribe/bin/valint bom git:. \
          --format attest \
          --scribe.enable \
-         --scribe.client-id $CLIENT_ID \
-         --scribe.client-secret $CLIENT_SECRET \
+         --scribe.client-id $SCRIBE_CLIENT_ID \
+         --scribe.client-secret $SCRIBE_CLIENT_SECRET \
          --product-key $PRODUCT_KEY \
          --attest.default x509 \
          --config .valint.yaml \
