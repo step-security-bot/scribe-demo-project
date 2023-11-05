@@ -28,11 +28,6 @@ jobs:
       statuses: none
       id-token: write
     steps:
-
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Bom json
         id: valint_json
         uses: scribe-security/action-bom@v0.4.2
