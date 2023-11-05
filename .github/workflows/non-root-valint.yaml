@@ -1,0 +1,53 @@
+
+
+name: Valint non-root demo
+
+on: 
+  push:
+    branches:
+      - 'pre-release**'
+      - 'release**'
+  workflow_dispatch:
+  pull_request:
+  #   branches:
+  #     - 'pre-release*'
+
+jobs:
+  non-root:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: read
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+      id-token: write
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Bom json
+        id: valint_json
+        uses: scribe-security/action-bom@v0.4.2
+        with:
+           target: 'busybox:latest'
+           verbose: 2
+           format: json
+           force: true
+        env:
+          USERID: 1001
+          USERNAME: runner
+
+      - name: cleanup
+        run: |
+          id -u
+          id
+          ls -lhR scribe
+          rm -rf scribe/valint
