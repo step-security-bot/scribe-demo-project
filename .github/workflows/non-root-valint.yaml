@@ -17,16 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Get Actions user id
+      - name: Set Actions user id
         id: get_uid
         run: |
           actions_user_id=`id -u $USER`
           echo $actions_user_id
           echo "USERID=$actions_user_id" >> $GITHUB_ENV
       
-      - run: |
-          printenv
-          echo "Using $USER ($USERID)"
 
       - name: Run non root valint
         id: valint_json
@@ -41,10 +38,12 @@ jobs:
           USERID: ${{ env.USERID }} ## Usally '1001' for github hosted workers
           USERNAME: ${{ env.USER }} ## usally 'runner' for github hosted workers 
 
-      - name: Show user info
+      # Show current runner user info and output file permissions
+      - name: Show info
         run: |
           id
           ls -lhR scribe
+          ls -lh non-root.sbom.json
 
   with-root:
     runs-on: ubuntu-latest
@@ -58,9 +57,10 @@ jobs:
            verbose: 2
            format: json
            force: true
-           output-file: non-root.sbom.json
+           output-file: root.sbom.json
 
       - name: Show user info
         run: |
           id
           ls -lhR scribe
+          ls -lh root.sbom.json
