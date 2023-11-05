@@ -3,14 +3,7 @@
 name: Valint non-root demo
 
 on: 
-  push:
-    branches:
-      - 'pre-release**'
-      - 'release**'
   workflow_dispatch:
-  pull_request:
-  #   branches:
-  #     - 'pre-release*'
 
 jobs:
   non-root:
