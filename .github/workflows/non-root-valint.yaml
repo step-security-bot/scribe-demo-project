@@ -17,16 +17,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Get Actions user id
-      id: get_uid
-      run: |
-        actions_user_id=`id -u $USER`
-        echo $actions_user_id
-        echo "USERID=$actions_user_id" >> $GITHUB_OUTPUT
+      - name: Get Actions user id
+        id: get_uid
+        run: |
+          actions_user_id=`id -u $USER`
+          echo $actions_user_id
+          echo "USERID=$actions_user_id" >> $GITHUB_OUTPUT
       
-      run: |
-        printenv
-        echo "Using $USER ($USERID)"
+      - run: |
+          printenv
+          echo "Using $USER ($USERID)"
 
       - name: Run non root valint
         id: valint_json
