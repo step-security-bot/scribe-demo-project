@@ -45,4 +45,29 @@ jobs:
         run: |
           id
           ls -lhR scribe
-          rm -rf scribe/valint
+
+  with-root:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get Actions user id
+        id: get_uid
+        run: |
+          actions_user_id=`id -u $USER`
+          echo $actions_user_id
+          echo "USERID=$actions_user_id" >> $GITHUB_ENV
+
+      - name: Run root valint 
+        id: valint_json
+        uses: scribe-security/action-bom@v0.4.2
+        with:
+           target: 'busybox:latest'
+           verbose: 2
+           format: json
+           force: true
+           output-file: non-root.sbom.json
+
+      - name: Show user info
+        run: |
+          id
+          ls -lhR scribe
