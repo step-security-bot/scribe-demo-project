@@ -1,10 +1,13 @@
 scribe:
   auth:
-    login-url: https://scribe-hub-production.us.auth0.com
+    #login-url: https://scribe-hub-production.us.auth0.com
+    login-url: https://scribe-hub-staging.us.auth0.com
     grant-type: client_credentials
     enable: true
-    audience: api.production.scribesecurity.com
-  url: https://airflow.scribesecurity.com
+    #audience: api.production.scribesecurity.com
+    audience: api.staging.scribesecurity.com
+  #url: https://airflow.scribesecurity.com
+  url: https://airflow.staging.scribesecurity.com
   enable: true
 attest:
     cocosign:
