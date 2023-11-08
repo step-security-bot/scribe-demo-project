@@ -16,6 +16,9 @@ env:
   SUPPLIER_EMAIL: info@scribesecurity.com
   SUPPLIER_PHONE: 001-001-0011
   USER_DATA: service-binding
+  COMPANY_CA: ${{ secrets.COMPANY_CA }}
+  SIGNER_CERT: ${{ secrets.SIGNER_CERT }}
+  SIGNER_KEY: ${{ secrets.SIGNER_KEY }}
  
 
 jobs:
