@@ -25,7 +25,7 @@ jobs:
       # Running containerized valint action setting the user it should run with.
       - name: Run non root valint
         id: valint_json
-        uses: scribe-security/action-bom@v0.4.2
+        uses: scribe-security/action-bom@dev
         with:
            target: 'busybox:latest'
            verbose: 2
