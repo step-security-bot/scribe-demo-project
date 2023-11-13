@@ -4,6 +4,7 @@ name: Valint non-root demo
 
 on: 
   workflow_dispatch:
+  push:
 
 jobs:
   non-root:
@@ -15,8 +16,11 @@ jobs:
         id: get_uid
         run: |
           actions_user_id=`id -u $USER`
+          actions_group_id=`id -g $USER`
           echo $actions_user_id
           echo "USERID=$actions_user_id" >> $GITHUB_ENV
+          echo "GROUPID=$actions_group_id" >> $GITHUB_ENV
+          printenv
       
       # Running containerized valint action setting the user it should run with.
       - name: Run non root valint
@@ -31,6 +35,8 @@ jobs:
         env:
           USERID: ${{ env.USERID }} ## Usally '1001' for github hosted workers
           USERNAME: ${{ env.USER }} ## usally 'runner' for github hosted workers 
+          GROUP: ${{ env.USER }} 
+          GROUPID: ${{ env.GROUPID }}
 
       # Show current runner user info and output file permissions
       - name: Show info
