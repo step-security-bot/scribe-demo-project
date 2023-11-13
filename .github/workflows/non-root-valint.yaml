@@ -3,14 +3,10 @@
 name: Valint non-root demo
 
 on: 
-  push:
-    branches:
-      - 'pre-release**'
-      - 'release**'
   workflow_dispatch:
   pull_request:
-  #   branches:
-  #     - 'pre-release*'
+
+  
 
 jobs:
   non-root:
@@ -22,13 +18,16 @@ jobs:
         id: get_uid
         run: |
           actions_user_id=`id -u $USER`
+          actions_group_id=`id -g $USER`
           echo $actions_user_id
           echo "USERID=$actions_user_id" >> $GITHUB_ENV
+          echo "GROUPID=$actions_group_id" >> $GITHUB_ENV
+          printenv
       
       # Running containerized valint action setting the user it should run with.
       - name: Run non root valint
         id: valint_json
-        uses: scribe-security/action-bom@v0.4.2
+        uses: scribe-security/action-bom@dev
         with:
            target: 'busybox:latest'
            verbose: 2
@@ -38,6 +37,8 @@ jobs:
         env:
           USERID: ${{ env.USERID }} ## Usally '1001' for github hosted workers
           USERNAME: ${{ env.USER }} ## usally 'runner' for github hosted workers 
+          GROUPID: ${{ env.GROUPID }} ## Required for HIGH UID/GID
+          GROUP: ${{ env.USER }} ## Optional for HIGH UID/GID
 
       # Show current runner user info and output file permissions
       - name: Show info
