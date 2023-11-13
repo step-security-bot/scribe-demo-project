@@ -20,7 +20,6 @@ jobs:
           echo $actions_user_id
           echo "USERID=$actions_user_id" >> $GITHUB_ENV
           echo "GROUPID=$actions_group_id" >> $GITHUB_ENV
-          printenv
       
       # Running containerized valint action setting the user it should run with.
       - name: Run non root valint
