@@ -34,8 +34,8 @@ jobs:
            output-file: non-root.sbom.json
         env:
           USERID: ${{ env.USERID }} ## Usally '1001' for github hosted workers
-          USERNAME: ${{ env.USER }} ## usally 'runner' for github hosted workers 
-          GROUP: ${{ env.USER }} 
+          USERNAME: runner ## usally 'runner' for github hosted workers 
+          GROUP: docker
           GROUPID: ${{ env.GROUPID }}
 
       # Show current runner user info and output file permissions
