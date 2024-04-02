@@ -32,7 +32,7 @@ jobs:
         # Used after a docker image is built
         uses: scribe-security/action-bom@master
         with:
-          target: 'docker:${{ github.repository }}:${{ github.sha }}'
+          target: nginx:latest
           scribe-enable: true
           product-key: ${{ github.repository }}:${{ github.sha }}
           scribe-client-id: ${{ secrets.CLIENT_ID }}
