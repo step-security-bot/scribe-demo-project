@@ -32,7 +32,7 @@ jobs:
         # Used after a docker image is built
         uses: scribe-security/action-bom@master
         with:
-          target: scribe-demo:latest
+          target: pranaycshah/todolist-demo:latest
           scribe-enable: true
           product-key: scribe-demo
           scribe-client-id: ${{ secrets.CLIENT_ID }}
