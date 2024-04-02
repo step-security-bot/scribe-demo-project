@@ -34,7 +34,7 @@ jobs:
         with:
           target: nginx:latest
           scribe-enable: true
-          product-key: ${{ github.repository }}:${{ github.sha }}
+          product-key: scribe-demo
           scribe-client-id: ${{ secrets.CLIENT_ID }}
           scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
           format: attest
