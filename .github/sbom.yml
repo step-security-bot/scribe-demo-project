@@ -1,0 +1,60 @@
+name: Create signed git clone and signed image sboms
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+  PRODUCT_VERSION: 0.4.12
+  APP_NAME: demo_product
+  VALINT_BOM_AUTHOR_NAME: Jane Doe
+  VALINT_BOM_AUTHOR_EMAIL: gc@scribesecurity.com
+  VALINT_BOM_AUTHOR_PHONE: 052-9000000
+  VALINT_BOM_SUPPLIER_NAME: Scribe-Security
+  VALINT_BOM_SUPPLIER_URL: www.scribesecurity.com
+  VALINT_BOM_SUPPLIER_EMAIL: info@scribesecurity.com
+  VALINT_BOM_SUPPLIER_PHONE: 001-001-0011
+  GITHUB_RUN_NUM: ${{ github.run_number }}
+
+  
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Generate signed SBOM for repo content
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'git:.'
+        scribe-enable: true
+        components: packages,files,dep
+        product-key: ${{ env.APP_NAME }}
+        scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+        format: attest
+        product-version: $${{ env.PRODUCT_VERSION }}
+        
+    - name: Build the Docker image
+      run: docker build . -t pranaycshah/todolist-demo:${{ github.sha }}
+
+    - name: Generate signed SBOM for docker image
+      uses: scribe-security/action-bom@master
+      with:
+        target: 'docker:scribe-demo-product:${{ github.sha }}'
+        scribe-enable: true
+        components: packages,files,dep
+        product-key: ${{ env.APP_NAME }}
+        scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
+        format: attest
+        product-version: $${{ env.PRODUCT_VERSION }}
+        
+        
