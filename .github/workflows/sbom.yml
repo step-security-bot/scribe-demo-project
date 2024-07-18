@@ -18,10 +18,7 @@ env:
   GITHUB_RUN_NUM: ${{ github.run_number }}
   DOCKER_CONFIG: $HOME/.docker
 
-  
-
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -44,13 +41,13 @@ jobs:
         format: attest
         product-version: $${{ env.PRODUCT_VERSION }}
         
-    - name: Push the Docker image to Docker Hub
+    - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
         registry: docker.io
         username: pranaycshah
-        password: ${{ secrets.DOCKER_TOKEN }}  
-        
+        password: ${{ secrets.DOCKER_TOKEN }}
+
     - name: Build the Docker image
       run: docker build . -t pranaycshah/todolist-demo:${{ github.sha }}
       
@@ -68,23 +65,24 @@ jobs:
         format: attest
         product-version: $${{ env.PRODUCT_VERSION }}
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-       registry: docker.io
-       username: pranaycshah
-       password: ${{ secrets.DOCKER_TOKEN }}
-    
-    - name: Generate SLSA  
+    - name: Generate SLSA provenance
+      id: valint_json
       uses: scribe-security/action-slsa@master
       with:
-          target: 'pranaycshah/todolist-demo:${{ github.sha }}'
-          scribe-enable: true
-          scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
-          format: attest
+        target: 'pranaycshah/todolist-demo:${{ github.sha }}'
+        scribe-enable: true
+        scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
+        format: attest
+        output-file: my_slsa.json
 
-    - name: valint attest
-      uses: scribe-security/action-slsa@master
+    - name: Upload SLSA provenance as artifact
+      uses: actions/upload-artifact@v2
       with:
-          target: 'pranaycshah/todolist-demo:${{ github.sha }}'
-          format: attest
+        name: scribe-slsa
+        path: my_slsa.json
+
+    - name: Upload evidence as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: scribe-evidence
+        path: scribe/
