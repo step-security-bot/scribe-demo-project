@@ -56,5 +56,17 @@ jobs:
         scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
         format: attest
         product-version: $${{ env.PRODUCT_VERSION }}
-        
-        
+
+    - name: Generate SLSA       
+      uses: scribe-security/action-slsa@master
+      with:
+          target: 'pranaycshah/todolist-demo:${{ github.sha }}'
+          scribe-enable: true
+          scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
+          force: true
+          
+    - name: valint attest
+      uses: scribe-security/action-slsa@master
+      with:
+          target: 'pranaycshah/todolist-demo:${{ github.sha }}'
+          format: attest
