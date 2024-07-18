@@ -72,7 +72,7 @@ jobs:
         target: 'pranaycshah/todolist-demo:${{ github.sha }}'
         scribe-enable: true
         scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
-        format: attest
+        format: statement
         output-file: my_slsa.json
 
     - name: Upload SLSA provenance as artifact
