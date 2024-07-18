@@ -1,0 +1,69 @@
+name: sbom new
+
+on:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+  PRODUCT_VERSION: 0.4.12
+  APP_NAME: demo_product
+  VALINT_BOM_AUTHOR_NAME: Jane Doe
+  VALINT_BOM_AUTHOR_EMAIL: gc@scribesecurity.com
+  VALINT_BOM_AUTHOR_PHONE: 052-9000000
+  VALINT_BOM_SUPPLIER_NAME: Scribe-Security
+  VALINT_BOM_SUPPLIER_URL: www.scribesecurity.com
+  VALINT_BOM_SUPPLIER_EMAIL: info@scribesecurity.com
+  VALINT_BOM_SUPPLIER_PHONE: 001-001-0011
+  GITHUB_RUN_NUM: ${{ github.run_number }}
+  DOCKER_CONFIG: $HOME/.docker
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+        
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        registry: docker.io
+        username: pranaycshah
+        password: ${{ secrets.DOCKER_TOKEN }}
+
+    - name: Build the Docker image
+      run: docker build . -t pranaycshah/todolist-demo:${{ github.sha }}
+      
+#    - name: Push the Docker image
+#      run: docker push pranaycshah/todolist-demo:${{ github.sha }}
+
+
+    - name: Generate SLSA provenance
+      id: valint_json
+      uses: scribe-security/action-slsa@master
+      with:
+        target: 'pranaycshah/todolist-demo:${{ github.sha }}'
+        scribe-enable: true
+        scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
+        format: attest
+        output-file: my_slsa.json
+        product-version: $${{ env.PRODUCT_VERSION }}
+
+    - name: Upload SLSA provenance as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: scribe-slsa
+        path: my_slsa.json
+
+    - name: Upload evidence as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: scribe-evidence
+        path: scribe/
