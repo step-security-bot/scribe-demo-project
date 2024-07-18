@@ -1,4 +1,4 @@
-name: sbom new
+name: slsa
 
 on:
   workflow_dispatch:
