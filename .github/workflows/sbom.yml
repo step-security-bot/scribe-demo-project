@@ -74,6 +74,7 @@ jobs:
           target: 'pranaycshah/todolist-demo:${{ github.sha }}'
           scribe-enable: true
           scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
+          format: attest
 
     - name: valint attest
       uses: scribe-security/action-slsa@master
