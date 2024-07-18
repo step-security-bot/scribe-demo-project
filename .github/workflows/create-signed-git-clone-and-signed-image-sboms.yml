@@ -20,7 +20,6 @@ jobs:
           target: 'git:.'
           scribe-enable: true
           components: packages,files,dep
-          scribe-client-id: ${{ secrets.CLIENT_ID }}
           scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
           format: attest
 
@@ -35,7 +34,6 @@ jobs:
           target: pranaycshah/todolist-demo:latest
           scribe-enable: true
           product-key: scribe-demo
-          scribe-client-id: ${{ secrets.CLIENT_ID }}
           scribe-client-secret: ${{ secrets.CLIENT_SECRET }}
           format: attest
 
