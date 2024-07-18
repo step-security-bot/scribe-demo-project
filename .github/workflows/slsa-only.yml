@@ -49,10 +49,10 @@ jobs:
       id: valint_json
       uses: scribe-security/action-slsa@master
       with:
-        target: 'pranaycshah/todolist-demo:${{ github.sha }}'
+        target: 'pranaycshah/todolist-demo:e316d6e362794a09c993417fac54a3a02843db23'
         scribe-enable: true
         scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
-        format: attest
+        format: statement
         output-file: my_slsa.json
         product-version: $${{ env.PRODUCT_VERSION }}
 
