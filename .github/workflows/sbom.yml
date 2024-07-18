@@ -49,7 +49,7 @@ jobs:
     - name: Generate signed SBOM for docker image
       uses: scribe-security/action-bom@master
       with:
-        target: 'docker:scribe-demo-product:${{ github.sha }}'
+        target: 'pranaycshah/todolist-demo:${{ github.sha }}'
         scribe-enable: true
         components: packages,files,dep
         product-key: ${{ env.APP_NAME }}
