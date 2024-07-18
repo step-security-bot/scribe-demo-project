@@ -48,7 +48,11 @@ jobs:
       run: docker build . -t pranaycshah/todolist-demo:${{ github.sha }}
       
     - name: Push the Docker image to Docker Hub
-      run: docker push pranaycshah/todolist-demo:${{ github.sha }}
+      with:
+       registry: docker.io
+       username: pranaycshah
+       password: ${{ secrets.DOCKER_TOKEN }}
+       run: docker push pranaycshah/todolist-demo:${{ github.sha }}
 
     - name: Generate signed SBOM for docker image
       uses: scribe-security/action-bom@master
