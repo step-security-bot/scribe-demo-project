@@ -49,7 +49,7 @@ jobs:
       id: valint_json
       uses: scribe-security/action-slsa@master
       with:
-        target: 'pranaycshah/todolist-demo:c6cc73d14f5ac5862e035da1a6e2b0e7d707252c'
+        target: 'pranaycshah/node-vuln:latest'
         scribe-enable: true
         scribe-client-secret: ${{ secrets.SCRIBE_TOKEN }}
         format: statement
