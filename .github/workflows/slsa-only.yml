@@ -18,6 +18,9 @@ env:
   GITHUB_RUN_NUM: ${{ github.run_number }}
   DOCKER_CONFIG: $HOME/.docker
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,11 +31,16 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Harden Runner
+      uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
 
         
     - name: Login to Docker Hub
-      uses: docker/login-action@v2
+      uses: docker/login-action@465a07811f14bebb1938fbed4728c6a1ff8901fc # v2.2.0
       with:
         registry: docker.io
         username: pranaycshah
@@ -47,7 +55,7 @@ jobs:
 
     - name: Generate SLSA provenance
       id: valint_json
-      uses: scribe-security/action-slsa@master
+      uses: scribe-security/action-slsa@d83bb63c91c85a5dc3584a6fec3d13fd739fbd80 # master
       with:
         target: 'pranaycshah/node-vuln:latest'
         scribe-enable: true
@@ -57,13 +65,13 @@ jobs:
         product-version: $${{ env.PRODUCT_VERSION }}
 
     - name: Upload SLSA provenance as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
       with:
         name: scribe-slsa
         path: my_slsa.json
 
     - name: Upload evidence as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@82c141cc518b40d92cc801eee768e7aafc9c2fa2 # v2.3.1
       with:
         name: scribe-evidence
         path: scribe/
