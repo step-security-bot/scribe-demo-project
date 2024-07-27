@@ -12,6 +12,11 @@ jobs:
     steps:
 
       # Setting github env with current runner UID.
+      - name: Harden Runner
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
+        with:
+          egress-policy: audit
+
       - name: Set Actions user id
         id: get_uid
         run: |
@@ -24,7 +29,7 @@ jobs:
       # Running containerized valint action setting the user it should run with.
       - name: Run non root valint
         id: valint_json
-        uses: scribe-security/action-bom@dev
+        uses: scribe-security/action-bom@e5af07e38da40330efcc62cd973b7253fc121edd # dev
         with:
            target: 'busybox:latest'
            verbose: 2
@@ -48,9 +53,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Harden Runner
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
+        with:
+          egress-policy: audit
+
       - name: Run root valint
         id: valint_json
-        uses: scribe-security/action-bom@v0.4.2
+        uses: scribe-security/action-bom@e6528ca3f603a86145fe996d43e809aff590e0b1 # v0.4.2
         with:
            target: 'busybox:latest'
            verbose: 2
