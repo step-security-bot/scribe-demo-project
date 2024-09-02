@@ -1,5 +1,4 @@
-name: Create signed git clone and signed image sboms
-
+name: pranay test
 on:
   workflow_dispatch:
 
